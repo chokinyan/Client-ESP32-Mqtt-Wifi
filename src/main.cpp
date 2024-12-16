@@ -7,7 +7,7 @@
 //Parametres MOSQUITTO  broker local à renseigner
 /////////////////////////////////////////////////
 // Paramètres réseau:
-#define BROKER "192.168.1.32"        //adresse ip Broker
+#define BROKER "192.168.247.134"        //adresse ip Broker
 #define MQTTPORT 1883        //port broker
 #define MYHOSTNAME  "Esp32"        //nom client mqtt
 #define QoS 0        //Qualité de service
@@ -15,15 +15,15 @@
 #define MDP "Step"       //Mot de passe compte
 #define TOPIC_OUT1 "stepper/etat"       //topic(s) de publication:
 
-#define INTERVAL  300                 //Intervale de répétition en ms d'envoi mqtt
+#define INTERVAL  10                 //Intervale de répétition en ms d'envoi mqtt
 //////////////////////////////////////////////
 //////////////////////////////////////////////
 
 
 /////////////////////////////////////////////
 //Parametre AP WIFI /////////////////////////
-#define SECRET_SSID   "BTS_CIEL"         		       // replace with your WiFi network name
-#define SECRET_PASS   "ERIR1234"                     // replace with your WiFi password
+#define SECRET_SSID   "S23Adem_"         		       // replace with your WiFi network name
+#define SECRET_PASS   "mdp12345"                     // replace with your WiFi password
 /////////////////////////////////////////////
 /////////////////////////////////////////////
 
@@ -142,6 +142,17 @@ void loop()
           //lecture des valeurs capteurs///////////////////////
     valeurCapteur = ultrasonicSensor.MeasureInCentimeters();
     
+    if(valeurCapteur <= 2)
+    {
+      valeurCapteur = 2;
+    }
+
+    if(valeurCapteur >= 11)
+    {
+      valeurCapteur = 11;
+    }
+
+
     sprintf(message1, "%ld", valeurCapteur);  //pour convertir valeur numérique en texte
       
                                                    // alors on publie le(s) message(s)
